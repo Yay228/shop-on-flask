@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block title %}
+<title>Каталог</title>
+{% endblock %}
+
+{% block body %}
+<h1></h1>
+
+
+
+{% for post in posts %}
+
+<div class="card" style="width: 18rem;">
+    <img src="..." class="card-img-top" alt="...">
+    <div class="card-body">
+      <h5 class="card-title">{{post.title}}</h5>
+      <p class="card-text">{{post.text}}</p>
+      <a href="#" class="btn btn-primary">{{post.cost}} рублей</a>
+    </div>
+  </div>
+   
+{% endfor %}
+
+{% endblock %}
