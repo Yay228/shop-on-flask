@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for, flash
+from flask import Flask, render_template, request, redirect, url_for, flash, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import UserMixin, LoginManager, login_user, logout_user, login_required
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -62,7 +62,7 @@ def load_user(user_id):
 
 @app.route('/home')
 @app.route('/')
-def hello_world():
+def main():
     return render_template('main.html')
 
 @app.route('/shop')
@@ -118,9 +118,9 @@ def register():
         user = User.query.filter_by(username=username).first()
 
         if user:
-            flash('Username already exists. Please choose another one.')
-            return redirect(url_for('register'))
-        
+            
+            return jsonify({"message": "Такой логин уже существует"})
+
         if not check_password_strength(password):
             flash('Password is not strong enough. It should be at least 8 characters long, include uppercase, lowercase letters and numbers.')
             return redirect(url_for('register'))
@@ -139,7 +139,7 @@ def register():
 @login_required
 def logout():
     logout_user()
-    return redirect(url_for('hello_world'))
+    return redirect(url_for('main'))
 
 
 if __name__ == '__main__':
