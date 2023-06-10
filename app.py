@@ -53,6 +53,7 @@ class Post(db.Model):
     title = db.Column(db.String(100), nullable=False)
     text = db.Column(db.Text, nullable=True)
     cost = db.Column(db.Integer, nullable=False)
+    genre = db.Column(db.Text(50), nullable=True)
 
 @login_manager.user_loader
 def load_user(user_id):
@@ -77,13 +78,13 @@ def create():
         title = request.form['title']
         text = request.form['text']
         cost = request.form['cost']
-
+        genre = request.form['genre']
         # проверяем, что поля title, text и cost не пустые
         if not title or not text or not cost:
             flash('Fields cannot be empty!')
             return redirect(request.url)
 
-        post = Post(title=title, cost=cost, text=text)
+        post = Post(title=title, cost=cost, text=text, genre=genre)
 
         try:
             db.session.add(post)
@@ -94,7 +95,7 @@ def create():
     else:
         return render_template('create.html')
     
-    
+
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
