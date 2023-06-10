@@ -8,12 +8,22 @@
 
 {% block body %}
 <h1>Добавление записи</h1>
-
+<div class="position-absolute top-50 start-50 translate-middle w-25 p-5">
 <form method="post" class="form-control">
-    <input type="text" name="title" placeholder="Введите название товара" class="form-control"><br>
+    <input type="text" name="title" placeholder="Введите название " class="form-control"><br>
     <input type="text" name="text" placeholder="Введите  описание" class="form-control"><br>
     <input type="number" name="cost" placeholder="Введите  цену" class="form-control"><br>
+    <select>
+        <option value="">Выберите жанр</option>
+        <option value="fantasy">Фантастика</option>
+        <option value="mystery">Детектив</option>
+        <option value="biography">Биография</option>
+        <!-- и так далее... -->
+      </select>
+      
     <button class="btn btn-success" type="submit">Добавить</button>
+    
 </form>
+</div>
 
 {% endblock %}

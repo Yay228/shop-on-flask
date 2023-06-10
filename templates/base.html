@@ -32,18 +32,22 @@
         </ul>
 
         <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search">
-          <input type="search" class="form-control form-control-dark text-bg-dark" placeholder="Search.."
+          <input type="search" class="form-control form-control-dark" placeholder="Search.."
             aria-label="Search">
         </form>
 
-        <div class="text-end d-inline-flex">
-          {% if current_user.is_authenticated %}
-          <p>Привет, {{ current_user.username }}!</p>
-          <a class="btn btn-primary" href="/logout" role="button">Выйти</a>
+        <div class="text-end d-inline-flex mx-10 ">
+          <div class="grid gap-1 column-gap-4 d-flex">
+            {% if current_user.is_authenticated %}
+
+        </div>
+          <a class="btn btn-primary p-2 g-col-6" href="/logout" role="button">Выйти</a>
           {% else %}
-          <a class="btn btn-primary" href="/login" role="button">Войти</a>
-          <a class="btn btn-primary" href="/register" role="button">зарегестрироваться</a>
+          <a class="btn btn-primary p-2 g-col-6" href="/login" role="button">Войти</a>
+          <a class="btn btn-primary p-2 g-col-6" href="/register" role="button">зарегестрироваться</a>
           {% endif %}
+          </div>
+
 
         </div>
       </div>
