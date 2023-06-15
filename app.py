@@ -80,13 +80,11 @@ def create():
         cost = request.form['cost']
         genre = request.form['genre']
         # проверяем, что поля title, text и cost не пустые
-        if not title or not text or not cost:
-            flash('Fields cannot be empty!')
-            return redirect(request.url)
-
-
+        # if not title or not text or not cost:
+        #     flash('Fields cannot be empty!')
+        #     return redirect(request.url)
+        title = title.capitalize()
         post = Post(title=title, cost=cost, text=text, genre=genre)
-
         try:
             db.session.add(post)
             db.session.commit()
@@ -153,13 +151,17 @@ def logout():
 
 @app.route('/search', methods=['GET', 'POST'])
 def search():
+    # Запрашиваем параметр search из URL.
+    search_term = request.args.get("search")
+    if search_term:
+        print(search_term)
+        search_term = search_term.capitalize()
+        print(search_term)
+        result = Post.query.filter(func.lower(Post.title).like(f"%{search_term}%")).all()
+    else:
+        result = []
     all1 = Post.query.all()
-    search = request.args.get("search").lower()
-    if search:
-        search = search.lower()
-    result = Post.query.filter(func.lower(Post.title).like(f"%{search}%")).all()
-    return render_template("search.html", result=result, all1 = all1)
-
+    return render_template("search.html", result=result, all1=all1)
 
 @app.route('/buy/<int:id>')
 def buy(id):

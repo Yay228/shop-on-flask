@@ -42,9 +42,9 @@
  
         <div class="text-end d-inline-flex mx-10 ">
           <div class="grid gap-1 column-gap-4 d-flex" style="margin-right: -5px;">
-            <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search" method="get" name="search">
+            <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search" method="get" name="search" action="/search">
               <input type="search" class="form-control form-control-dark" placeholder="Search.."
-                aria-label="Search" name="search" action="/search" style="line-height: 1;">
+                aria-label="Search" name="search"  style="line-height: 1;">
               
             </form>
         </div>
@@ -53,10 +53,7 @@
           {% else %}
           <a class="btn btn-primary p-2 g-col-6" style="margin-right: 10px; padding: 0; line-height: 1;" href="/login" role="button">Вход</a>
           <a class="btn btn-primary p-2 g-col-6" style="padding: 0; line-height: 1;" href="/register" role="button">Регистрация</a>
-
           {% endif %}
-          
-
           </div>
         </div>
 
