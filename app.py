@@ -109,7 +109,8 @@ def login():
         if user is not None and user.check_password(password) == True:
             login_user(user)
             return redirect(url_for('main'))
-        
+        elif username == '':
+            flash("Введите логин")
         elif user is None:
             flash("Неверный логин")
         elif user.check_password(password) == False:
