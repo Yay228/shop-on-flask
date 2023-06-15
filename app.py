@@ -47,6 +47,9 @@ class User(UserMixin, db.Model):
 
     def check_password(self, password):
         return check_password_hash(self.password_hash, password)
+    is_admin = db.Column(db.Boolean, default=False)
+
+
 
 class Post(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -54,6 +57,8 @@ class Post(db.Model):
     text = db.Column(db.Text, nullable=True)
     cost = db.Column(db.Integer, nullable=False)
     genre = db.Column(db.Text(50), nullable=True)
+
+
 
 @login_manager.user_loader
 def load_user(user_id):
@@ -154,9 +159,7 @@ def search():
     # Запрашиваем параметр search из URL.
     search_term = request.args.get("search")
     if search_term:
-        print(search_term)
         search_term = search_term.capitalize()
-        print(search_term)
         result = Post.query.filter(func.lower(Post.title).like(f"%{search_term}%")).all()
     else:
         result = []
@@ -166,3 +169,14 @@ def search():
 def buy(id):
     post = Post.query.get(id)
     return render_template("buy.html", id = id, post = post)
+
+
+@app.route('/delete_post/<int:post_id>', methods=['POST'])
+def delete_post(post_id):
+    post = Post.query.get_or_404(post_id)
+    db.session.delete(post)
+    db.session.commit()
+    return redirect(url_for('shop'))
+
+
+

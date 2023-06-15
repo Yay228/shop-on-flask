@@ -16,6 +16,9 @@
       <a href="/buy/{{post.id}}" class="btn btn-primary">{{post.cost}} рублей</a>
       <p class="card-genre">{{post.genre}}</p>
     </div>
+    <form action="{{ url_for('delete_post', post_id=post.id) }}" method="POST">
+      <input type="submit" value="Delete Post" class="btn btn-primary">
+  </form>
   </div>
 
 
