@@ -102,12 +102,18 @@ def login():
     if request.method == 'POST':
         username = request.form.get('username')
         password = request.form.get('password')
+        print(username)
+        print(password)
         user = User.query.filter_by(username=username).first()
+        print(user)
         if user is not None and user.check_password(password) == True:
             login_user(user)
             return redirect(url_for('main'))
-        # else:
-            # return jsonify({"message": "Invalid username or password."})
+        
+        elif user is None:
+            flash("Неверный логин")
+        elif user.check_password(password) == False:
+            flash("Неверный пароль")
     return render_template('login.html')
  
 @app.route('/register', methods=['GET', 'POST'])
@@ -123,7 +129,8 @@ def register():
             return redirect(url_for('register'))
     
         if not check_password_strength(password):
-            flash('Password is not strong enough. It should be at least 8 characters long, include uppercase, lowercase letters and numbers.')
+            # flash('Password is not strong enough. It should be at least 8 characters long, include uppercase, lowercase letters and numbers.')
+            flash('Пароль не безопасный')
             return redirect(url_for('register'))
 
         new_user = User(username=username)

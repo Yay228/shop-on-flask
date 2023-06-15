@@ -5,12 +5,28 @@
 {% endblock %}
 
 {% block body %}
-<h1>Регистрация</h1>
 
+<div class="position-absolute top-50 start-50 translate-middle d-flex">
 
-
-<div class="position-absolute top-50 start-50 translate-middle d-flex ">
   <form method="POST" id="registerForm">
+    <div class="d-flex justify-content-center">
+      <img src="{{ url_for('static', filename='photo/free.png' ) }}" style="height: 100px; width: auto;">
+    </div>
+    <div class=" justify-content-center" style="display: grid;">
+    <h1 style="text-align: center;">Регистрация</h1>
+
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+      <div class="flashes d-flex justify-content-end pe-3">
+      {% for message in messages %}
+        <div class="alert alert-warning" role="alert">
+          {{ message }}
+        </div>
+      {% endfor %}
+      </div>
+    {% endif %}
+    {% endwith %}
+  </div>
     <div class="mb-3">
       <label for="exampleInputEmail1" class="form-label">Email address</label>
       <input type="text" name="username" class="form-control" id="username" required>
@@ -27,7 +43,6 @@
     <div class="mb-3 form-check">
     </div>
   </form>
-</div>
 </div>
 
 
