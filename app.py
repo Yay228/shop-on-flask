@@ -160,8 +160,7 @@ def search():
         result = Post.query.filter(func.lower(Post.title).like(f"%{search_term}%")).all()
     else:
         result = []
-    all1 = Post.query.all()
-    return render_template("search.html", result=result, all1=all1)
+    return render_template("search.html", result=result)
 
 @app.route('/buy/<int:id>')
 def buy(id):
