@@ -6,8 +6,11 @@
 
 {% block body %}
 <h1>Регистрация</h1>
-<div class="position-absolute top-50 start-50 translate-middle">
-<form method="POST" id="register-form">
+
+
+
+<div class="position-absolute top-50 start-50 translate-middle d-flex ">
+  <form method="POST" id="registerForm">
     <div class="mb-3">
       <label for="exampleInputEmail1" class="form-label">Email address</label>
       <input type="text" name="username" class="form-control" id="username" required>
@@ -16,50 +19,23 @@
     <div class="mb-3">
       <label for="exampleInputPassword1" class="form-label">Password</label>
       <input type="password" name="password" class="form-control" id="password" required>
+      <div id="errorMsg" class="invalid-tooltip">
+        Please provide a valid password.
+      </div>
     </div>
     <button type="submit" class="btn btn-primary" value="Log In">Submit</button>
     <div class="mb-3 form-check">
     </div>
-</form>
+  </form>
+</div>
 </div>
 
-<!-- Modal -->
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" style="color:black">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel " style="color:black">Registration Status</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body" id="modal-message">
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-      </div>
-    </div>
-  </div>
-</div>
 
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-<script>
-$("#register-form").submit(function(e){
-    e.preventDefault();
-    $.ajax({
-        url: '/register',  
-        data: $(this).serialize(),
-        type: 'POST',
-        success: function(response){
-            $("#modal-message").text(response.message);
-            $("#myModal").modal('show');
-        },
-        error: function(error){
-            console.log(error);
-        }
-    });
-});
-</script>
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
 
 {% endblock %}

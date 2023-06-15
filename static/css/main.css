@@ -1,12 +1,19 @@
 body {
-    background-color: #282828;
-    color: white
+  background-color: #282828;
+  color: white
 }
+
 select {
-    width: 200px;
-    padding: 10px;
-    border: none;
-    border-radius: 4px;
-    background-color: #f2f2f2;
-  }
-  
+  width: 200px;
+  padding: 10px;
+  border: none;
+  border-radius: 4px;
+  background-color: #f2f2f2;
+}
+
+#errorMessage {
+  position: absolute;
+  top: 50%;
+  left: 110%;
+  /* Adjust this as needed */
+}

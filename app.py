@@ -4,6 +4,7 @@ from flask_login import UserMixin, LoginManager, login_user, logout_user, login_
 from werkzeug.security import generate_password_hash, check_password_hash
 import re
 from flask_migrate import Migrate
+from sqlalchemy import func
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///shop.db'
@@ -18,7 +19,6 @@ migrate = Migrate(app, db)
 login_manager = LoginManager()
 login_manager.init_app(app)
 login_manager.login_view = 'login'
-
 
 def check_password_strength(password):
     """
@@ -36,7 +36,7 @@ def check_password_strength(password):
     else:
         return True
     
-
+    
 class User(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(64), unique=True)
@@ -84,6 +84,7 @@ def create():
             flash('Fields cannot be empty!')
             return redirect(request.url)
 
+
         post = Post(title=title, cost=cost, text=text, genre=genre)
 
         try:
@@ -102,11 +103,11 @@ def login():
         username = request.form.get('username')
         password = request.form.get('password')
         user = User.query.filter_by(username=username).first()
-        if user is not None and user.check_password(password):
+        if user is not None and user.check_password(password) == True:
             login_user(user)
-            return redirect(url_for('shop'))
-        else:
-            flash('Invalid username or password.')
+            return redirect(url_for('main'))
+        # else:
+            # return jsonify({"message": "Invalid username or password."})
     return render_template('login.html')
  
 @app.route('/register', methods=['GET', 'POST'])
@@ -118,9 +119,9 @@ def register():
         user = User.query.filter_by(username=username).first()
 
         if user:
-            
-            return jsonify({"message": "Такой логин уже существует"})
-
+            flash("Такой логин уже существует")
+            return redirect(url_for('register'))
+    
         if not check_password_strength(password):
             flash('Password is not strong enough. It should be at least 8 characters long, include uppercase, lowercase letters and numbers.')
             return redirect(url_for('register'))
@@ -135,12 +136,24 @@ def register():
 
     return render_template('register.html')
 
+
 @app.route('/logout')
 @login_required
 def logout():
     logout_user()
     return redirect(url_for('main'))
 
+@app.route('/search', methods=['GET', 'POST'])
+def search():
+    all1 = Post.query.all()
+    search = request.args.get("search").lower()
+    if search:
+        search = search.lower()
+    result = Post.query.filter(func.lower(Post.title).like(f"%{search}%")).all()
+    return render_template("search.html", result=result, all1 = all1)
 
-if __name__ == '__main__':
-    app.run(host='0.0.0.0', debug=True)
+
+@app.route('/buy/<int:id>')
+def buy(id):
+    post = Post.query.get(id)
+    return render_template("buy.html", id = id, post = post)
