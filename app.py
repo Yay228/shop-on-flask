@@ -8,7 +8,7 @@ from sqlalchemy import func
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///shop.db'
-app.config['SECRET_KEY'] = '35af661f77853008b76aa25d99e42d8f'
+app.config['SECRET_KEY'] = '2023'
 db = SQLAlchemy(app)
 
 
@@ -57,25 +57,25 @@ class Post(db.Model):
     text = db.Column(db.Text, nullable=True)
     cost = db.Column(db.Integer, nullable=False)
     genre = db.Column(db.Text(50), nullable=True)
+    image =db.Column(db.Text(300), nullable=True)
 
 
 
-@login_manager.user_loader
-def load_user(user_id):
-    return User.query.get(int(user_id))
-
-
+# Home page
 @app.route('/home')
 @app.route('/')
 def main():
     return render_template('main.html')
 
+
+#Shop page
 @app.route('/shop')
-@login_required
 def shop():
     shop = Post.query.all()
     return render_template('shop.html', posts=shop)
 
+
+# Creating post
 @app.route('/create', methods=['POST', 'GET'])
 @login_required
 def create():
@@ -84,12 +84,14 @@ def create():
         text = request.form['text']
         cost = request.form['cost']
         genre = request.form['genre']
+        image = request.form['image']
         # проверяем, что поля title, text и cost не пустые
-        # if not title or not text or not cost:
-        #     flash('Fields cannot be empty!')
-        #     return redirect(request.url)
-        title = title.capitalize()
-        post = Post(title=title, cost=cost, text=text, genre=genre)
+        if not title or not text or not cost:
+            flash('Fields cannot be empty!')
+            return redirect(request.url)
+        title = title.lower()
+        text = text.lower()
+        post = Post(title=title, cost=cost, text=text, genre=genre, image=image)
         try:
             db.session.add(post)
             db.session.commit()
@@ -100,6 +102,7 @@ def create():
         return render_template('create.html')
     
 
+# Login in
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
@@ -119,7 +122,9 @@ def login():
         elif user.check_password(password) == False:
             flash("Неверный пароль")
     return render_template('login.html')
- 
+
+
+# Register an account
 @app.route('/register', methods=['GET', 'POST'])
 def register():
     if request.method == 'POST':
@@ -148,29 +153,36 @@ def register():
     return render_template('register.html')
 
 
+# Logout
 @app.route('/logout')
 @login_required
 def logout():
     logout_user()
     return redirect(url_for('main'))
 
+
+# Search
 @app.route('/search', methods=['GET', 'POST'])
 def search():
-    # Запрашиваем параметр search из URL.
     search_term = request.args.get("search")
     if search_term:
-        search_term = search_term.capitalize()
-        result = Post.query.filter(func.lower(Post.title).like(f"%{search_term}%")).all()
+        search_term = search_term.lower()
+        result = Post.query.filter(Post.title.ilike(f"%{search_term}%")).all()
+        result2 = Post.query.filter(Post.text.ilike(f"%{search_term}%")).all()
     else:
         result = []
-    return render_template("search.html", result=result)
+    return render_template("search.html", result=result, result2 = result2)
 
+
+# Buying post
 @app.route('/buy/<int:id>')
 def buy(id):
     post = Post.query.get(id)
     return render_template("buy.html", id = id, post = post)
 
 
+
+# Deleting post
 @app.route('/delete_post/<int:post_id>', methods=['POST'])
 def delete_post(post_id):
     post = Post.query.get_or_404(post_id)
@@ -179,4 +191,9 @@ def delete_post(post_id):
     return redirect(url_for('shop'))
 
 
+
+# Login
+@login_manager.user_loader
+def load_user(user_id):
+    return User.query.get(int(user_id))
 

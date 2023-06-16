@@ -31,7 +31,7 @@
           <li><a href="/" class="nav-link px-2 text-white" style="margin-right: 20px;"><b>TEYMUR</b></a></li>
           <li><a href="#" class="nav-link px-2 text-white">Features</a></li>
           <li><a href="/shop" class="nav-link px-2 text-white">Каталог</a></li>
-          {% if current_user.is_authenticated %}
+          {% if current_user.is_admin %}
           <li><a href="/create" class="nav-link px-2 text-white">Создать</a></li>
           {% endif %}
   
