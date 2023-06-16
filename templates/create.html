@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block title %}
+<title>О магазине</title>
+
+{% endblock %}
+
+
+{% block body %}
+<h1>Добавление записи</h1>
+<div class="position-absolute top-50 start-50 translate-middle w-25 p-5">
+<form method="post" class="form-control">
+    <input type="text" name="title" placeholder="Введите название " class="form-control"><br>
+    <input type="text" name="text" placeholder="Введите  описание" class="form-control"><br>
+    <input type="number" name="cost" placeholder="Введите  цену" class="form-control"><br>
+    <input type="text" name="image" placeholder="Введите ссылку на фото" class="form-control"><br>
+    <select name="genre">
+        <option value="">Выберите жанр</option>
+        <option value="Фентези">Фентези</option>
+        <option value="Детектив">Детектив</option> 
+        <option value="Биография">Биография</option>
+        <option value="Приключения">Приключения</option>
+        <option value="научная фантастика">научная фантастика</option>
+        <option value="Художественная литература">Художественная литература</option>
+        <option value="Романтика">Романтика</option>
+        <option value="Триллер">Триллер</option>
+        <option value="Ужасы">Ужасы</option>
+        <option value="Комедия">Комедия</option>
+        <option value="Нехудожественная литература">Нехудожественная литература</option>
+        <option value="Поэзия">Поэзия</option>
+      </select>
+      
+    <button class="btn btn-success" type="submit">Добавить</button>
+    
+</form>
+</div>
+
+{% endblock %}

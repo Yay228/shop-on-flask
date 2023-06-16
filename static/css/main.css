@@ -1,0 +1,50 @@
+body {
+  /* background-color: #282828;
+  color: white */
+  background-color: white;
+  color: black;
+
+}
+
+
+select {
+  width: 200px;
+  padding: 10px;
+  border: none;
+  border-radius: 4px;
+  background-color: #f2f2f2;
+}
+
+
+#errorMessage {
+  position: absolute;
+  top: 50%;
+  left: 110%;
+  /* Adjust this as needed */
+}
+
+/* .container12 {
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr; 
+    grid-template-rows: 1fr 1fr;
+    gap: 10px; /* Опционально: промежуток между элементами grid } */
+
+
+
+.container1 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: 1fr;
+  gap: 10px;
+}
+
+.grid-item {
+  border: 1px solid black;
+  padding: 10px;
+  text-align: center;
+}
+
+.container2 div {
+  display: flex;
+  justify-content: space-between;
+}

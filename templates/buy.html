@@ -1,0 +1,106 @@
+{% extends 'base.html'%}
+
+{% block title %}
+<title>g</title>
+{% endblock %}
+
+
+{% block body %}
+
+
+<!-- <div class="position-absolute top-50 start-50 translate-middle d-flex">
+
+  <div class="card col-sm-3 m-auto my-4 mx-3 " style="width: 18rem;">
+    <img src="{{post.image}}" class="card-img-top" alt="...">
+    <div class="card-body">
+      <h5 class="card-title">{{post.title | capitalize}}</h5>
+      <p class="card-text" style="text-transform: capitalize;">{{post.text | capitalize}}</p>
+      <a href="/buy/{{post.id}}" class="btn btn-primary">{{post.cost}} ₽</a>
+      <p class="card-genre">{{post.genre}}</p>
+    </div>
+
+    <form action="{{ url_for('delete_post', post_id=post.id) }}" method="POST">
+      {% if current_user.is_admin %}
+
+      <input type="submit" value="Delete Post" class="btn btn-primary">
+      {% endif %}
+    </form>
+  </div>
+</div> -->
+
+  <!-- 
+  <div class="container12 mt-3 p-5 mx-1">
+    <div class="grid-item" style="min-height: 400px; min-width: 500px;">
+      <div class=" w-50 p-3" >
+      <img src="{{post.image}}" class="card-img-top"  alt="..." >
+      </div>
+    </div>
+    <div class="grid-item">Item 2</div>
+    <div class="grid-item">Item 3</div>
+    <div class="grid-item">Item 4</div>
+    <div class="grid-item">Item 5</div>
+    <div class="grid-item">Item 6</div>
+  </div> -->
+
+
+<!-- <div class="container text-center" style="padding-top: 100px;">
+  <div class="row">
+    <div class="col">
+      <div style="width: 300px;" >
+        <img src="{{post.image}}" class="card-img-top"  alt="..." >
+        </div>
+    </div>
+    <div class="col">
+      <h1 style="text-align: left;"><b>{{post.title | capitalize}}</b></h1>
+      <h4 style="text-align: left; color: #26A9E0;">{{post.text | capitalize}}</h4>
+      <h1 style="text-align: left;"><b>{{post.title}}</b></h1>
+      <h5 style="text-align: left; color:#707783; padding-top: 10px;">ID товара</h5>
+      <h5 style="text-align: left; color:#707783">Издательство </h5>
+      <h5 style="text-align: left; color:#707783">Год издания</h5>
+      <h5 style="text-align: left; color:#707783">Вес, г</h5>
+      <h5 style="text-align: left; color:#707783"></h5>
+
+    </div>
+    <div class="col">
+      Column
+      
+    </div>
+  </div>
+</div> -->
+
+
+<div class="container1" style="padding-top: 100px;">
+  <div class="grid-item">
+    
+    
+    <div style="width: 300px;" >
+      <img src="{{post.image}}" class="card-img-top"  alt="..." >
+      </div>
+  
+  </div>
+<!-- 
+  <div class="grid-item">
+    <h1 style="text-align: left;"><b>{{post.title | capitalize}}</b></h1>
+    <h4 style="text-align: left; color: #26A9E0;">{{post.text | capitalize}}</h4>
+    <h5 style="text-align: left; color:#707783; padding-top: 10px;">ID товара</h5>
+    <h5 style="text-align: left; color:#707783">Издательство </h5>
+    <h5 style="text-align: left; color:#707783">Год издания</h5>
+    <h5 style="text-align: left; color:#707783">Вес, г</h5>
+    <h5 style="text-align: left; color:#707783"></h5> -->
+
+    <div class="container2">
+      <h1 style="text-align: left;"><b>{{post.title | capitalize}}</b></h1>
+      <h4 style="text-align: left; color: #26A9E0;">{{post.text | capitalize}}</h4>
+      <div><span><h5 style="color: #707783;">ID товара</h5></span><span>{{post.id}}</span></div>
+      <div><span><h5 style="color: #707783;">Издательство</h5></span><span>Эксмо</span></div>
+      <div><span><h5 style="color: #707783;">Серия</h5></span><span>Всегда под рукой</span></div>
+      <div><span><h5 style="color: #707783;">Год издания</h5></span><span>2022</span></div>
+      <div><span><h5 style="color: #707783;">ISBN</h5></span><span>978-5-04-167914-9</span></div>
+    </div>
+
+  </div>
+  <div class="grid-item">Item 3</div>
+</div>
+
+
+{% endblock %}

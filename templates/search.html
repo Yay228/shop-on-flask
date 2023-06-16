@@ -1,0 +1,38 @@
+{% extends 'base.html'%}
+
+{% block title %}
+<title>Поиск</title>
+{% endblock %}
+
+{% block body %}
+<h1 style="text-align: center">Результаты поиска</h1>
+
+<div class="subject-list m-auto row container-sm p-3">
+  {% for post in result %}
+  
+  <div class="card col-sm-3 m-auto my-4 mx-3 " style="width: 18rem;">
+    <img src="{{post.image}}" class="card-img-top" style="height: 350px;" alt="...">
+      <div class="card-body">
+        <h5 class="card-title">{{post.title | capitalize}}</h5>
+        <p class="card-text"  style="text-transform: capitalize;">{{post.text | capitalize}}</p>
+        <a href="/buy/{{post.id}}" class="btn btn-primary">{{post.cost}} рублей</a>
+        <p class="card-genre">{{post.genre}}</p>
+      </div>
+    </div>
+  {% endfor %}
+
+  {% for post in result2 %}
+  
+  <div class="card col-sm-3 m-auto my-4 mx-3 " style="width: 18rem;">
+    <img src="{{post.image}}" class="card-img-top" style="height: 350px;" alt="...">
+      <div class="card-body">
+        <h5 class="card-title">{{post.title | capitalize}}</h5>
+        <p class="card-text"  style="text-transform: capitalize;">{{post.text | capitalize}}</p>
+        <a href="/buy/{{post.id}}" class="btn btn-primary">{{post.cost}} рублей</a>
+        <p class="card-genre">{{post.genre}}</p>
+      </div>
+    </div>
+  {% endfor %}
+
+  </div>
+{% endblock %}
